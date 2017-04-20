@@ -1,4 +1,4 @@
-import gensim, logging, os, random
+import os, random
 from gensim.models.Annaword2vec import *
 # from gensim.models.word2vec import *
 from pprint import pprint
@@ -33,7 +33,7 @@ def main (debug=False):
     max_num_files = int(sys.argv[2])
     extn = sys.argv[3]
     opfname_prefix = sys.argv[4]
-    dim = int(sys.argv[5])
+    embedding_dim = int(sys.argv[5])
     iters = int(sys.argv[6])
     n_cpus = int(sys.argv[7])
 
@@ -41,18 +41,19 @@ def main (debug=False):
     #num_files = 1000
     #extn = 'Removed'
     #opfname_prefix = 'subgraph2vec'
-    #dim = 32
+    #embedding_dim = 32
     #iters = 10
     #n_cpus = 20
 
 
     sentences = list(MySentences(wlk_target_contexts_dir, max_num_files, extn))
 
-    neg = 20 #num of negative samples for skipgram model
+    neg = 20 #num of negative samples for skipgram model - CHANGE ACCORDING TO YOUR WISH
     sg = 1
 
-    model = Word2Vec(sentences, min_count=1,
-                     size=dim,
+    model = Word2Vec(sentences, 
+                     min_count=1,
+                     size=embedding_dim,
                      sg=sg,
                      negative=neg,
                      workers=n_cpus,
@@ -66,12 +67,16 @@ def main (debug=False):
             pprint(model.most_similar(w))
             print '-' * 80
 
-    opfname = os.path.join ('../models', opfname_prefix + '_' + '_'.join([str(max_num_files), str(dim), str(sg), str(neg), str(iters)]))
+    opfname = os.path.join ('../models', opfname_prefix + '_' + '_'.join([str(max_num_files),
+                                                                          str(embedding_dim),
+                                                                          str(sg),
+                                                                          str(neg),
+                                                                          str(iters)]))
     model.save(opfname)
 
     print 'output gensim model containing all the subgraphs and their {} ' \
           'dimensional emeddings for the files from folder {} is saved at {}'\
-        .format(dim, wlk_target_contexts_dir, opfname)
+        .format(embedding_dim, wlk_target_contexts_dir, opfname)
 
 
 if __name__ == '__main__':
