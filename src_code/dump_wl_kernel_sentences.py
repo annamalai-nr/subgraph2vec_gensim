@@ -1,5 +1,6 @@
 import networkx as nx
-import os,sys,json, multiprocessing as mp,time
+import os,sys,json, multiprocessing as mp
+from time import time
 from networkx.readwrite import json_graph
 from joblib import Parallel,delayed
 
@@ -77,36 +78,37 @@ def wlk_relabel(g,h):
 
 
 def process_single_fname (f, h):
-    T0 = time.time()
+    T0 = time()
     print 'processing ',f
     g = read_from_json_gexf(f)
     if not g:
         return
     g = wlk_relabel(g,h)
     dump_g_as_bow_infile (g,opfname=f+'.WL'+str(h), h=h)
-    print 'dumped wlk file in {} sec'.format(round(time.time()-T0,2))
+    print 'dumped wlk file in {} sec'.format(round(time()-T0,2))
 
-if __name__ == '__main__':
-    graph_dir = sys.argv[1]
-    n_cpus = int (sys.argv[2])
-    h = int (sys.argv[3])
-    extn = '.gexf'
-
-    files_to_process = [os.path.join (graph_dir, f) for f in os.listdir(graph_dir) if f.endswith(extn)]
-    for root, dirs, files in os.walk(graph_dir):
+def get_files_to_process(dirname, extn):
+    files_to_process = [os.path.join(dirname, f) for f in os.listdir(dirname) if f.endswith(extn)]
+    for root, dirs, files in os.walk(dirname):
         for f in files:
             if f.endswith(extn):
-                files_to_process.append(os.path.join (root,f))
+                files_to_process.append(os.path.join(root, f))
 
-    files_to_process = list(set(files_to_process));files_to_process.sort()
+    files_to_process = list(set(files_to_process))
+    files_to_process.sort()
+    return files_to_process
+
+if __name__ == '__main__':
+    graph_dir = sys.argv[1] #folder containing the graph's gexf/json format files
+    n_cpus = int (sys.argv[2]) #number of cpus to be used for multiprocessing
+    h = int (sys.argv[3]) #height of WL kernel (i.e., degree of neighbourhood to consdider)
+    extn = '.gexf'
+
+    files_to_process = get_files_to_process(dirname = graph_dir, extn = extn)
 
     raw_input('have to procees a total of {} files with {} parallel processes... hit any key to proceed...'.
               format(len(files_to_process), n_cpus))
 
-    # for f in files_to_process:
-        # process_single_fname (f, h)
-
-    # Parallel(n_jobs=2)(delayed(sqrt)(i ** 2) for i in range(10))
     Parallel(n_jobs=n_cpus)(delayed(process_single_fname)(f, h) for f in files_to_process)
 
 
