@@ -445,7 +445,7 @@ class Word2Vec(utils.SaveLoad):
             level=logging.INFO)
         logging.info("running %s", " ".join(sys.argv))
         logging.info("using optimization %s", FAST_VERSION)
-        raw_input()
+        #raw_input()
 
         self.vocab = {}  # mapping from a word (string) to a Vocab object
         self.index2word = []  # map from a word's matrix index (int) to word (string)
