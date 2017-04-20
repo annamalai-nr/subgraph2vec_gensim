@@ -1,7 +1,7 @@
 import networkx as nx
 import os,sys,json, multiprocessing as mp,time
 from networkx.readwrite import json_graph
-from pprint import pprint
+from joblib import Parallel,delayed
 
 def read_from_json_gexf(fname=None,label_field_name='Label'):
     if not fname:
@@ -80,6 +80,8 @@ def process_single_fname (f, h):
     T0 = time.time()
     print 'processing ',f
     g = read_from_json_gexf(f)
+    if not g:
+        return
     g = wlk_relabel(g,h)
     dump_g_as_bow_infile (g,opfname=f+'.WL'+str(h), h=h)
     print 'dumped wlk file in {} sec'.format(round(time.time()-T0,2))
@@ -90,7 +92,6 @@ if __name__ == '__main__':
     h = int (sys.argv[3])
     extn = '.gexf'
 
-    Pool = mp.Pool(n_cpus)
     files_to_process = [os.path.join (graph_dir, f) for f in os.listdir(graph_dir) if f.endswith(extn)]
     for root, dirs, files in os.walk(graph_dir):
         for f in files:
@@ -102,12 +103,10 @@ if __name__ == '__main__':
     raw_input('have to procees a total of {} files with {} parallel processes... hit any key to proceed...'.
               format(len(files_to_process), n_cpus))
 
-    for f in files_to_process:
-        Pool.apply_async(func=process_single_fname, args=(f,h))
+    # for f in files_to_process:
         # process_single_fname (f, h)
 
-    Pool.close()
-    Pool.join()
-
+    # Parallel(n_jobs=2)(delayed(sqrt)(i ** 2) for i in range(10))
+    Parallel(n_jobs=n_cpus)(delayed(process_single_fname)(f, h) for f in files_to_process)
 
 
