@@ -4,7 +4,7 @@ from time import time
 from networkx.readwrite import json_graph
 from joblib import Parallel,delayed
 
-def read_from_json_gexf(fname=None,label_field_name='Label'):
+def read_from_json_gexf(fname=None,label_field_name='Label',conv_undir = False):
     if not fname:
         print 'no valid path or file name'
         return None
@@ -24,8 +24,9 @@ def read_from_json_gexf(fname=None,label_field_name='Label'):
             print "unable to load graph from file", fname
             return 0
     print 'loaded {} a graph with {} nodes and {} egdes'.format(fname,g.number_of_nodes(),g.number_of_edges())
-    g = nx.Graph (g)
-    print 'converted {} as undirected graph'.format (g)
+    if conv_undir:
+        g = nx.Graph (g)
+        print 'converted {} as undirected graph'.format (g)
     return g
 
 
