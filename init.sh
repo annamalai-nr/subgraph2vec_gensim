@@ -1,6 +1,9 @@
 mkdir models
 mkdir data
-echo "created models and data folder (pls check by typing ls later)"
+echo "created models and data folder"
+
+tar -xvzf kdd_datasets.tar.gz
+excho "untared the dataset provided in the \"Deep Graph Kernels\" paper by Pinar Yanardag and SVN Vishwanathan"
 
 mv src_code/Annaword2vec.py /usr/local/lib/python2.7/dist-packages/gensim/models/Annaword2vec.py
 mv src_code/mod_word2vec_inner.so /usr/local/lib/python2.7/dist-packages/gensim/models/mod_word2vec_inner.so
