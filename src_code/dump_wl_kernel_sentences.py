@@ -33,22 +33,21 @@ def read_from_json_gexf(fname=None,label_field_name='Label',conv_undir = False):
 def get_graph_as_bow (g, h):
     for n,d in g.nodes_iter(data=True):
         for i in xrange(0, h+1):
-            Center = d['relabel'][i]
-            NeisLabelsPrevDeg = []
-            NeisLabelsNextDeg = []
+            center = d['relabel'][i]
+            neis_labels_prev_deg = []
+            neis_labels_next_deg = []
 
             if -1 != i-1:
-                NeisLabelsPrevDeg = [g.node[nei]['relabel'][i-1] for nei in nx.all_neighbors(g, n)]
+                neis_labels_prev_deg = [g.node[nei]['relabel'][i-1] for nei in nx.all_neighbors(g, n)]
             NeisLabelsSameDeg = [g.node[nei]['relabel'][i] for nei in nx.all_neighbors(g,n)]
             if not i+1 > h:
-                NeisLabelsNextDeg = [g.node[nei]['relabel'][i+1] for nei in nx.all_neighbors(g,n)]
+                neis_labels_next_deg = [g.node[nei]['relabel'][i+1] for nei in nx.all_neighbors(g,n)]
 
+            nei_list = NeisLabelsSameDeg + neis_labels_prev_deg + neis_labels_next_deg
+            nei_list = ' '.join (nei_list)
 
-            NeisList = NeisLabelsSameDeg + NeisLabelsPrevDeg + NeisLabelsNextDeg
-            NeisList = ' '.join (NeisList)
-
-            Sentence = Center + ' ' + NeisList
-            yield Sentence
+            sentence = center + ' ' + nei_list
+            yield sentence
 
 
 def dump_g_as_bow_infile (g,opfname, h):
