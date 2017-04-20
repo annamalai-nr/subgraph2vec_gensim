@@ -6,13 +6,7 @@ from pprint import pprint
 def read_from_json_gexf(fname=None,label_field_name='Label'):
     if not fname:
         print 'no valid path or file name'
-        g = nx.DiGraph()
-        g.add_edges_from(
-            [(0, 2), (0, 3), (1, 0), (0,4), (5,1), (6,1), (1,7), (12,3), (3, 10), (3,11), (2,15), (13,2),
-             (14,2),(10,4),(9,4),(4,8)])
-        for i in xrange(16):
-            g.node[i]['label'] = str(i)
-        return g
+        return None
     else:
         try:
             try:
@@ -47,18 +41,11 @@ def get_graph_as_bow (g, h):
             if not i+1 > h:
                 NeisLabelsNextDeg = [g.node[nei]['relabel'][i+1] for nei in nx.all_neighbors(g,n)]
 
-            # print 'for center: ', Center
-            # pprint (NeisLabelsPrevDeg)
-            # pprint (NeisLabelsSameDeg)
-            # pprint (NeisLabelsNextDeg)
-            # raw_input()
 
             NeisList = NeisLabelsSameDeg + NeisLabelsPrevDeg + NeisLabelsNextDeg
             NeisList = ' '.join (NeisList)
 
             Sentence = Center + ' ' + NeisList
-            # print Sentence
-            # raw_input()
             yield Sentence
 
 
@@ -74,7 +61,7 @@ def wlk_relabel(g,h):
 
     for i in xrange(0,h+1): #xrange returns [min,max)
         for n in g.nodes_iter():
-            degree_prefix = 'D' + str(i)
+            # degree_prefix = 'D' + str(i)
             degree_prefix = ''
             if 0 == i:
                 g.node[n]['relabel'][0] = degree_prefix + str(g.node[n]['label']).strip() + degree_prefix
