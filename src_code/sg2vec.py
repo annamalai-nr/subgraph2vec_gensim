@@ -93,8 +93,8 @@ def main (debug=False):
             pprint(model.most_similar(w))
             print '-' * 80
 
-    opfname = os.path.join ('../models', opfname_prefix + '_' + '_'.
-                            join(['numfiles',
+    opfname = os.path.join ('../models', opfname_prefix + '_' +
+                            '_'.join(['numfiles',
                                    str(max_num_files),
                                    'embeddingdim',
                                    str(embedding_dim),
@@ -105,9 +105,11 @@ def main (debug=False):
     model.save(opfname)
 
     print
+    print '-' * 80
     print 'output gensim model containing all the subgraphs and their {} ' \
           'dimensional emeddings for the files from folder {} is saved at {}'\
         .format(embedding_dim, wlk_target_contexts_dir, opfname)
+    print '-' * 80
     print
     print 'for loading the embeddings and exploring the gensim model,' \
           'check tutorial at: https://rare-technologies.com/word2vec-tutorial'
