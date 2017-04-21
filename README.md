@@ -2,7 +2,7 @@
 
 The subgraph2vec paper could be found at: https://arxiv.org/pdf/1606.08928.pdf 
 
-*** A working vitural machine with all the code/libraries could be downloaded from: https://drive.google.com/open?id=0B5UPYObHDu7iWEE0ZlV5WXlhOGs ***
+*** A working vitural machine with all the code/libraries could be downloaded from: link coming soon ***
 
 This code is run and tested on Ubuntu 14.04 and 16.04.
 The code is developed using python 2.7 (3.x could be obtained by modifying the same).
@@ -22,8 +22,8 @@ We have edited the native word2vec_inner.py file and created a new .so file name
 ## ** The procedure for verifying the setup is as follows: ** ## 
 1. make sure the gensim package contains a softlink "word2vec_inner.so -> mod_word2vec_inner.so" (command: ls -l /usr/local/lib/python2.7/dist-packages/gensim/models)
 2. make sure that the file named 'Annaword2vec.py' is present in /usr/local/lib/python2.7/dist-packages/gensim/models (command: ls /usr/local/lib/python2.7/dist-packages/gensim/models/Annaword2vec.py)
-3. make sure that the version of gensim is 0.12.4 (command from the python prompt: import gensim;print gensim.__version__)
-
+3. make sure that the version of gensim is 0.12.4 (command from the python prompt: import gensim;print gensim.\_\_version\_\_)
+\\
 ## ** The procedure for obtaining rooted subgraph vectors using subgraph2vec approach is as follows: ** ## 
 1. move to the folder "src-code" (command cd src_code) (also make sure that kdd 2015 paper's (Deep Graph Kernels) datasets are available in '../kdd_datasets/dir_graphs/')
 2. run dump_wl_kernel_sentences.py file to generate the weisfeiler-lehman kernel's rooted subgraphs from all the graphs in a given folder
