@@ -29,6 +29,11 @@ def shuffle(sents):
 
 
 def main (debug=False):
+
+    if sys.argv[1] == '-h' or sys.argv[1] == '--help':
+        print 'commandline args: <src_dir> <max_num_files> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores>'
+        exit(0)
+
     wlk_target_contexts_dir = sys.argv[1]
     max_num_files = int(sys.argv[2])
     extn = sys.argv[3]
@@ -77,6 +82,9 @@ def main (debug=False):
     print 'output gensim model containing all the subgraphs and their {} ' \
           'dimensional emeddings for the files from folder {} is saved at {}'\
         .format(embedding_dim, wlk_target_contexts_dir, opfname)
+
+    print 'for loading the embeddings and exploring the gensim model,' \
+          'check tutorial at: https://rare-technologies.com/word2vec-tutorial'
 
 
 if __name__ == '__main__':
