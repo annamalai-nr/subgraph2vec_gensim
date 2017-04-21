@@ -99,6 +99,10 @@ def get_files_to_process(dirname, extn):
     return files_to_process
 
 if __name__ == '__main__':
+    if sys.argv[1] in ['-h','--help']:
+        print 'command line args: <gexf/json graph_dir> <num of cpu cores for multi-processing> <height of WL kernel> '
+        exit (0)
+
     graph_dir = sys.argv[1] #folder containing the graph's gexf/json format files
     n_cpus = int (sys.argv[2]) #number of cpus to be used for multiprocessing
     h = int (sys.argv[3]) #height of WL kernel (i.e., degree of neighbourhood to consdider)
