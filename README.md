@@ -20,7 +20,7 @@ We have edited the native word2vec_inner.py file and created a new .so file name
 NOTE: tensorflow version of the same will be released soon.
 
 ##  The procedure for setting up subgraph2vec is as follows:  ##
-1. git clone the repository (command: git clone https://github.com/MLDroid/subgraph2vec.git
+1. git clone the repository (command: git clone https://github.com/MLDroid/subgraph2vec.git )
 2. sudo run init.sh (installs gensim, modifies word2vec libraries to use radial skipgram (refer sec: 5.2.2 of the paper))
 NOTE: no need to run init.sh on the sg2vec VM (it is already setup)
 
@@ -32,8 +32,8 @@ NOTE: no need to run init.sh on the sg2vec VM (it is already setup)
 ##  The procedure for obtaining rooted subgraph vectors using subgraph2vec approach is as follows:  ## 
 1. move to the folder "src-code" (command: cd src_code) (also make sure that kdd 2015 paper's (Deep Graph Kernels) datasets are available in '../kdd_datasets/dir_graphs/')
 2. run dump_wl_kernel_sentences.py file to generate the weisfeiler-lehman kernel's rooted subgraphs from all the graphs in a given folder
-   * syntax: python dump_wl_kernel_sentences.py <gexf/json graph_dir> <num of cpu cores for multi-processing> <height of WL kernel>
-   * example: python dump_wl_kernel_sentences.py ../kdd_datasets/dir_graphs/mutag 8 4 (this will generate files with extension .WL4 that contain target and context subgraphs in every graph)
+   * syntax: python dump_wl_kernel_sentences.py \<gexf/json graph_dir\> \<height of WL kernel\> \<num of cpu cores for multi-processing\>
+   * example: python dump_wl_kernel_sentences.py ../kdd_datasets/dir_graphs/mutag 4 8 (this will generate files with extension .WL4 that contain target and context subgraphs in every graph)
 3. run sg2vec.py to generate embeddings for each of the subgraphs generated in step 2
    * syntax: python sg2vec.py <src_dir> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores> 
    * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 32 100 8 
