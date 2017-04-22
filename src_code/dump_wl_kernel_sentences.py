@@ -1,5 +1,5 @@
 import networkx as nx
-import os,sys,json, multiprocessing as mp
+import os,sys,json
 from time import time
 from networkx.readwrite import json_graph
 from joblib import Parallel,delayed
