@@ -35,8 +35,8 @@ NOTE: no need to run init.sh on the sg2vec VM (it is already setup)
    * syntax: python dump_wl_kernel_sentences.py \<gexf/json graph_dir\> \<height of WL kernel\> \<num of cpu cores for multi-processing\>
    * example: python dump_wl_kernel_sentences.py ../kdd_datasets/dir_graphs/mutag 4 8 (this will generate files with extension .WL4 that contain target and context subgraphs in every graph)
 3. run sg2vec.py to generate embeddings for each of the subgraphs generated in step 2
-   * syntax: python sg2vec.py <src_dir> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores> 
-   * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 32 100 8 
+   * syntax: python sg2vec.py <src_dir> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores>
+   * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 mutag 32 100 8
    * this will generate the following two outputs:
       i)  a gensim word2vec model containing embeddings for all the subgraphs in the "../models" folder
       ii) a json dump of the python dictionary containg embeddings of subgraphs (format of the dictionary: key = subgraph, value = embedding)
