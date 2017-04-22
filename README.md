@@ -2,9 +2,13 @@
 
 The subgraph2vec paper could be found at: https://arxiv.org/pdf/1606.08928.pdf 
 
-## A working vitural machine with all the code/libraries could be downloaded from: link coming tomorrow ##
+## Virtual Machine with working subgraph2vec setup ##
+* An Ubuntu 16.04 vitural machine with all the libraries required for running subgraph2vec could be downloaded from: https://drive.google.com/open?id=0B5UPYObHDu7iWEE0ZlV5WXlhOGs
+* Credentials of the VM: username = sg2vec, password = sg2vec
+* Just clone this repository and follow the instructions to mentioned below to run subgraph2vec on this VM
 
-This code is developed in python 2.7. It run and tested on Ubuntu 14.04 and 16.04.
+## Dependencies ##
+This code is developed in python 2.7. It is ran and tested on Ubuntu 14.04 and 16.04.
 It uses the following python packages:
 1. gensim (version == 0.12.4)
 2. networkx (version <= 1.11)
@@ -18,6 +22,7 @@ NOTE: tensorflow version of the same will be released soon.
 ##  The procedure for setting up subgraph2vec is as follows:  ##
 1. git clone the repository (command: git clone https://github.com/MLDroid/subgraph2vec.git
 2. sudo run init.sh (installs gensim, modifies word2vec libraries to use radial skipgram (refer sec: 5.2.2 of the paper))
+NOTE: no need to run init.sh on the sg2vec VM (it is already setup)
 
 ##  The procedure for verifying the setup is as follows:  ## 
 1. make sure the gensim package contains a softlink "word2vec_inner.so -> mod_word2vec_inner.so" (command: ls -l /usr/local/lib/python2.7/dist-packages/gensim/models)
@@ -31,5 +36,8 @@ NOTE: tensorflow version of the same will be released soon.
    * example: python dump_wl_kernel_sentences.py ../kdd_datasets/dir_graphs/mutag 8 4 (this will generate files with extension .WL4 that contain target and context subgraphs in every graph)
 3. run sg2vec.py to generate embeddings for each of the subgraphs generated in step 2
    * syntax: python sg2vec.py <src_dir> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores> 
-   * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 32 100 8 (this will generate a gensim word2vec model containing 32 dimensional embeddings for all the subgraphs (encompassing upto degree 4 neighbourhoods) in "mutag" dataset.)
+   * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 32 100 8 
+   * this will generate the following two outputs:
+      i)  a gensim word2vec model containing embeddings for all the subgraphs in the "../models" folder
+      ii) a json dump of the python dictionary containg embeddings of subgraphs (format of the dictionary: key = subgraph, value = embedding)
 
