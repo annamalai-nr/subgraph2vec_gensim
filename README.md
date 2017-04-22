@@ -38,6 +38,10 @@ NOTE: no need to run init.sh on the sg2vec VM (it is already setup)
    * syntax: python sg2vec.py <src_dir> <file_extension> <opfname_prefix> <embedding_dim> <iterations> <# of cpu cores>
    * example: python sg2vec.py ../kdd_datasets/dir_graphs/mutag WL4 mutag 32 100 8
    * this will generate the following two outputs:
-      i)  a gensim word2vec model containing embeddings for all the subgraphs in the "../models" folder
-      ii) a json dump of the python dictionary containg embeddings of subgraphs (format of the dictionary: key = subgraph, value = embedding)
+      * i)  a gensim word2vec model containing embeddings for all the subgraphs in the "../models" folder
+      * ii) a json dump of the python dictionary containg embeddings of subgraphs (format of the dictionary: key = subgraph, value = embedding)
+
+
+## Contact ##
+In case of queries, please email: annamala002@e.ntu.edu.sg
 
