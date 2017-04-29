@@ -6,7 +6,7 @@ The subgraph2vec paper could be found at: https://arxiv.org/pdf/1606.08928.pdf
 * An Ubuntu 16.04 vitural machine with all the libraries required for running subgraph2vec could be downloaded from: https://drive.google.com/open?id=0B5UPYObHDu7iWEE0ZlV5WXlhOGs
 * Credentials of the VM: username = sg2vec, password = sg2vec
 * Just clone this repository and follow the instructions mentioned below to run subgraph2vec on this VM
-NOTE: This VM contains a older version of this repository in its home folder. So, please delete it and clone afresh for accessing the latest code. 
+* NOTE: This VM contains a older version of this repository in its home folder. So, please delete it and clone afresh for accessing the latest code. 
 
 #### Dependencies
 This code is developed in python 2.7. It is ran and tested on Ubuntu 14.04 and 16.04.
